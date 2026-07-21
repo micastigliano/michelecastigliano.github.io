@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michele Castigliano — Specialista Digital Marketing & Advertising</title>
+<meta name="description" content="Specialista freelance in digital marketing. Gestisco campagne Google, Meta e TikTok orientate al ROI, sviluppo e-commerce e strategie di crescita data-driven per far crescere il tuo fatturato.">
+<link rel="canonical" href="https://michelecastigliano.com/it/">
+<link rel="alternate" hreflang="en" href="https://michelecastigliano.com/">
+<link rel="alternate" hreflang="it" href="https://michelecastigliano.com/it/">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #0d0d0d; --surface: #161616; --accent: #c8a96e; --text: #f0ece4; --muted: #7a7570; --border: #2a2620; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.4; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,13,13,0.9), transparent); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--accent); letter-spacing: 0.05em; }
+  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent); }
+  .lang-switch { display: flex; gap: 0.5rem; align-items: center; font-size: 0.8rem; letter-spacing: 0.1em; }
+  .lang-switch a { color: var(--muted); text-decoration: none; transition: color 0.3s; text-transform: uppercase; }
+  .lang-switch a.active { color: var(--accent); }
+  .lang-switch a:hover { color: var(--accent); }
+  .lang-switch span { color: var(--border); }
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%); pointer-events: none; }
+  .hero-content { max-width: 760px; }
+  .hero-label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-label::before { content: ''; display: block; width: 40px; height: 1px; background: var(--accent); }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 700; line-height: 1.08; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-desc { font-size: 1.15rem; color: var(--muted); max-width: 560px; margin-bottom: 2.5rem; line-height: 1.8; }
+  .hero-actions { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; border: 1px solid var(--accent); background: var(--accent); color: var(--bg); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; border: 1px solid var(--border); color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-scarcity { margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .hero-scarcity .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(200,169,110,0.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(200,169,110,0.5); } 70% { box-shadow: 0 0 0 10px rgba(200,169,110,0); } 100% { box-shadow: 0 0 0 0 rgba(200,169,110,0); } }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; margin-bottom: 0.25rem; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  section { padding: 6rem 4rem; border-top: 1px solid var(--border); }
+  .section-label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 2rem; line-height: 1.15; }
+  h2 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: 1.15rem; color: var(--muted); max-width: 720px; line-height: 1.8; }
+  /* Metodo / principi */
+  .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); margin-top: 3rem; }
+  .principle-card { background: var(--bg); padding: 2.5rem; transition: background 0.3s; }
+  .principle-card:hover { background: var(--surface); }
+  .principle-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); margin-bottom: 1rem; }
+  .principle-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .principle-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  /* Servizi */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); margin-top: 3rem; }
+  .service-card { background: var(--bg); padding: 2.5rem; transition: background 0.3s; }
+  .service-card:hover { background: var(--surface); }
+  .service-icon { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--accent); }
+  .service-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.75rem; }
+  .service-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  .platforms { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; }
+  .platform-tag { padding: 0.5rem 1.25rem; border: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: all 0.3s; }
+  .platform-tag:hover { border-color: var(--accent); color: var(--accent); }
+  /* Processo */
+  .process-list { margin-top: 3rem; }
+  .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .process-step:first-child { border-top: 1px solid var(--border); }
+  .process-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+  .process-step h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 700; }
+  .process-step p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+  /* Case study */
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); margin-top: 3rem; }
+  .case-card { background: var(--bg); padding: 2.5rem; }
+  .case-sector { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .case-metric { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+  .case-metric-label { font-size: 0.9rem; color: var(--text); margin-bottom: 1rem; }
+  .case-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  /* Testimonianze */
+  .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 3rem; }
+  .testi-card { background: var(--bg); padding: 2.5rem; }
+  .testi-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; line-height: 1.6; margin-bottom: 1.5rem; color: var(--text); }
+  .testi-author { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; }
+  .testi-role { font-size: 0.8rem; color: var(--muted); }
+  /* CTA band */
+  .cta-band { text-align: center; }
+  .cta-band h2 { max-width: 760px; margin: 0 auto 1.5rem; }
+  .cta-band .lead { margin: 0 auto 2.5rem; }
+  /* Contatti */
+  .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 2rem; }
+  .contact-intro { font-size: 1rem; color: var(--muted); line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; color: var(--text); text-decoration: none; font-size: 0.95rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); transition: color 0.3s; }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon { color: var(--accent); font-size: 1.1rem; width: 20px; }
+  .address-block { margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); line-height: 2; }
+  .address-block strong { color: var(--text); display: block; margin-bottom: 0.25rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .legal-section { padding: 4rem 4rem; border-top: 1px solid var(--border); }
+  .legal-section h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--accent); }
+  .legal-section p, .legal-section li { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.75rem; }
+  .legal-section ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+  .legal-section h4 { font-size: 1rem; color: var(--text); margin: 1.5rem 0 0.5rem; }
+  .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.8s ease both; }
+  .hero-label { animation-delay: 0.1s; } h1 { animation-delay: 0.2s; } .hero-desc { animation-delay: 0.3s; } .hero-actions { animation-delay: 0.4s; } .hero-scarcity { animation-delay: 0.5s; } .hero-stats { animation-delay: 0.6s; }
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .nav-right { gap: 1.25rem; } .hero { padding: 7rem 1.5rem 3rem; }
+    section, .legal-section { padding: 4rem 1.5rem; } .contact-content, .legal-grid, .testi-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .testi-grid { gap: 1px; } .hero-stats { gap: 2rem; } .process-step { grid-template-columns: 1fr; gap: 0.75rem; } footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MC</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#metodo">Metodo</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#risultati">Risultati</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <div class="lang-switch">
+      <a href="/">EN</a><span>/</span><a href="/it/" class="active">IT</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Specialista Digital Marketing</div>
+    <h1>Faccio crescere il tuo <em>fatturato</em>, non le metriche di vanità.</h1>
+    <p class="hero-desc">
+      Sono un consulente freelance di digital marketing. Gestisco campagne Google, Meta e TikTok orientate al ROI, sviluppo e-commerce e costruisco strategie di crescita misurabili — con un numero selezionato di clienti alla volta.
+    </p>
+    <div class="hero-actions">
+      <a href="#contatti" class="btn-primary">Parliamo del tuo progetto →</a>
+      <a href="#risultati" class="btn-ghost">Vedi i risultati</a>
+    </div>
+    <div class="hero-scarcity">
+      <span class="dot"></span> Lavoro con pochi clienti alla volta per garantire risultati reali
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-number">10+</div><div class="stat-label">Clienti attivi</div></div>
+      <div><div class="stat-number">€2,7M+</div><div class="stat-label">Ad spend gestito</div></div>
+      <div><div class="stat-number">10+</div><div class="stat-label">Anni di esperienza</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="section-label">Il mio metodo</div>
+  <h2>Non un'agenzia.<br>Un <em>partner</em> che risponde dei numeri.</h2>
+  <p class="lead">La maggior parte delle agenzie ti vende impression, click e like. Io lavoro su ciò che conta davvero: quanto ti costa acquisire un cliente e quanto quel cliente vale nel tempo. Ogni euro investito deve tornare, in modo tracciabile e sostenibile.</p>
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-num">01</div>
+      <div class="principle-title">Trasparenza totale</div>
+      <p class="principle-desc">Accessi, dati e report sempre tuoi e sempre accessibili. Sai esattamente dove va il budget e che risultato produce, senza black box.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">02</div>
+      <div class="principle-title">Focus sul ROI</div>
+      <p class="principle-desc">Ottimizzo su CPA, ROAS e margine reale, non su metriche di facciata. L'obiettivo è un costo per cliente sostenibile e scalabile.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">03</div>
+      <div class="principle-title">Pochi clienti, seguiti bene</div>
+      <p class="principle-desc">Lavoro con un portfolio selezionato per dedicare a ogni progetto tempo e attenzione reali. Niente account gestiti in serie.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">04</div>
+      <div class="principle-title">Decisioni sui dati</div>
+      <p class="principle-desc">Uso le API di Google Ads e Meta per automatizzare reportistica e monitoraggio, così le scelte nascono dai dati e non dalle sensazioni.</p>
+    </div>
+  </div>
+</section>
+
+<section id="servizi">
+  <div class="section-label">Cosa faccio</div>
+  <h2>Servizi</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Gestione Google Ads</div>
+      <p class="service-desc">Campagne Search, Performance Max, Display e Shopping. Strategia keyword, ottimizzazione delle offerte, allocazione budget e reportistica GAQL su più account tramite Google Ads Manager (MCC), con integrazione API per un monitoraggio avanzato.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Meta & TikTok Ads</div>
+      <p class="service-desc">Gestione campagne su Facebook, Instagram e TikTok. Targeting del pubblico, strategia creativa, progettazione dei funnel e analisi cross-platform. Campagne TikTok GMV Max per la crescita e-commerce.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Sviluppo Web & E-commerce</div>
+      <p class="service-desc">Progettazione e sviluppo di siti professionali ed e-commerce su Shopify e altre piattaforme. Landing page ottimizzate per la conversione, con attenzione a performance ed esperienza utente.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Analisi & Reporting</div>
+      <p class="service-desc">Reportistica cross-platform approfondita con integrazioni API e strumenti AI. Benchmark su CPA, ROAS e CTR, confronto dei budget e strategie di ottimizzazione concrete per massimizzare la crescita del fatturato.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Tracking & Setup API</div>
+      <p class="service-desc">Configurazione di Google Tag Manager, GA4, Conversions API e Meta Pixel. Troubleshooting tecnico dei problemi di tracciamento, configurazione dei dataset e integrazioni API di terze parti per automatizzare le campagne.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Strategia di Crescita</div>
+      <p class="service-desc">Strategie digitali a 360° per far crescere il fatturato — advertising, presenza organica, ottimizzazione delle conversioni e analisi dei dati, per costruire sistemi di crescita scalabili e sostenibili.</p>
+    </div>
+  </div>
+  <div class="platforms">
+    <span class="platform-tag">Google Ads</span>
+    <span class="platform-tag">Meta Ads</span>
+    <span class="platform-tag">TikTok Ads</span>
+    <span class="platform-tag">Google Analytics 4</span>
+    <span class="platform-tag">Google Tag Manager</span>
+    <span class="platform-tag">Google Ads API</span>
+    <span class="platform-tag">Meta Marketing API</span>
+    <span class="platform-tag">Shopify</span>
+    <span class="platform-tag">Looker Studio</span>
+  </div>
+</section>
+
+<section id="processo">
+  <div class="section-label">Come lavoriamo insieme</div>
+  <h2>Il <em>processo</em></h2>
+  <div class="process-list">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <div>
+        <h3>Analisi e audit</h3>
+        <p>Partiamo dai tuoi numeri: account, tracciamento, storico delle campagne e margini. Capisco dove stai perdendo budget e dove c'è margine di crescita reale.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <div>
+        <h3>Strategia e setup</h3>
+        <p>Definiamo obiettivi, target di CPA/ROAS e struttura delle campagne. Sistemo tracciamento e reportistica così che ogni risultato sia misurabile fin dal primo giorno.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <div>
+        <h3>Lancio e ottimizzazione</h3>
+        <p>Mando le campagne live e le ottimizzo in continuo su dati reali: creatività, offerte, pubblici e budget. Iterazioni rapide, decisioni basate sui numeri.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">04</div>
+      <div>
+        <h3>Scala e reportistica</h3>
+        <p>Una volta trovato ciò che funziona, scaliamo mantenendo il costo per cliente sostenibile. Report chiari e periodici: sai sempre cosa succede e perché.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="risultati">
+  <div class="section-label">Risultati</div>
+  <h2>Dove faccio la <em>differenza</em>.</h2>
+  <p class="lead">Il tipo di lavoro che porto ai clienti, in settori diversi. L'obiettivo è sempre lo stesso: una crescita misurabile e un costo di acquisizione sostenibile nel tempo.</p>
+  <div class="case-grid">
+    <div class="case-card">
+      <div class="case-sector">E-commerce · Moda</div>
+      <div class="case-metric-label" style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--accent); margin-bottom:1rem;">Scaling sostenibile</div>
+      <p class="case-desc">Ristrutturazione dei funnel e del tracciamento per aumentare la spesa pubblicitaria mantenendo il costo di acquisizione sotto controllo, così da crescere senza erodere i margini.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-sector">E-commerce · Food</div>
+      <div class="case-metric-label" style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--accent); margin-bottom:1rem;">Costi sotto controllo</div>
+      <p class="case-desc">Ottimizzazione delle campagne Performance Max e delle creatività per ridurre il costo per acquisizione a parità di volume di ordini, migliorando la redditività.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-sector">Servizi · Lead generation</div>
+      <div class="case-metric-label" style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--accent); margin-bottom:1rem;">Più lead qualificati</div>
+      <p class="case-desc">Nuova struttura di campagne Search e landing page dedicate, con un tracciamento delle conversioni ripulito e affidabile per portare contatti realmente in target.</p>
+    </div>
+  </div>
+</section>
+
+<section id="collaborazione">
+  <div class="section-label">Lavorare insieme</div>
+  <h2>Cosa puoi <em>aspettarti</em>.</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-quote">Sai sempre dove va il budget e che risultato produce.</p>
+      <p class="case-desc">Report chiari e accessi ai dati sempre tuoi. Niente black box, niente metriche di facciata: solo i numeri che contano per il tuo business.</p>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Ottimizzo sui margini reali, non sui like.</p>
+      <p class="case-desc">Lavoro per abbassare il costo di acquisizione e rendere la crescita sostenibile. Poche collaborazioni alla volta, seguite con attenzione reale.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="section-label" style="text-align:center;">Pronto a partire?</div>
+  <h2>Costruiamo insieme una crescita <em>sostenibile</em>.</h2>
+  <p class="lead">Lavoro con pochi clienti alla volta. Se vuoi capire come posso aiutarti a far crescere il tuo fatturato, scrivimi: analizzo la tua situazione e ti dico con onestà se e come posso esserti utile.</p>
+  <div style="margin-top:2.5rem;"><a href="#contatti" class="btn-primary">Contattami →</a></div>
+</section>
+
+<section id="contatti">
+  <div class="section-label">Contatti</div>
+  <h2>Parliamo</h2>
+  <div class="contact-content">
+    <div>
+      <p class="contact-intro">Disponibile per nuove collaborazioni, audit delle campagne e consulenze strategiche. Scrivimi per capire come posso aiutarti a far crescere il tuo business.</p>
+      <div class="address-block">
+        <strong>Dati fiscali</strong>
+        Michele Castigliano<br>
+        Specialista Digital Marketing freelance<br>
+        Castellammare di Stabia (NA), Italia<br>
+        P.IVA: IT09715471216
+      </div>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:info@michelecastigliano.com" class="contact-link">
+        <span class="contact-link-icon">✉</span>
+        info@michelecastigliano.com
+      </a>
+      <a href="https://www.linkedin.com/in/michele-castigliano/" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-link-icon">in</span>
+        linkedin.com/in/michele-castigliano
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="legal-section" id="privacy">
+  <div class="legal-grid">
+    <div>
+      <h3>Privacy Policy</h3>
+      <p>Ultimo aggiornamento: giugno 2026</p>
+      <h4>1. Titolare del trattamento</h4>
+      <p>Michele Castigliano, specialista freelance in digital marketing, Castellammare di Stabia (NA), Italia. P.IVA: IT09715471216. Contatto: info@michelecastigliano.com</p>
+      <h4>2. Dati raccolti</h4>
+      <p>Questo sito non raccoglie dati personali dai visitatori. Non sono installati cookie, script di tracciamento o strumenti di analytics. Se mi contatti via email, tratterò il tuo nome e indirizzo email al solo scopo di rispondere alla tua richiesta.</p>
+      <h4>3. Utilizzo dei dati tramite API</h4>
+      <p>Utilizzo le API di Google Ads e Meta Marketing come strumenti interni per accedere e analizzare i dati di performance delle campagne dei clienti che gestisco su esplicito accordo scritto. Questi dati sono utilizzati esclusivamente per finalità interne di reportistica e ottimizzazione e non sono mai condivisi con terze parti, archiviati su server esterni o utilizzati oltre l'ambito del relativo incarico.</p>
+      <h4>4. I tuoi diritti</h4>
+      <p>Ai sensi del GDPR (Regolamento UE 2016/679) hai diritto ad accedere, rettificare, cancellare o limitare il trattamento dei tuoi dati personali. Per esercitare questi diritti scrivi a: info@michelecastigliano.com</p>
+      <h4>5. Conservazione dei dati</h4>
+      <p>La corrispondenza via email è conservata per un massimo di 12 mesi. Nessun altro dato personale è archiviato da questo sito.</p>
+    </div>
+    <div>
+      <h3>Termini di Servizio</h3>
+      <p>Ultimo aggiornamento: giugno 2026</p>
+      <h4>1. Servizi offerti</h4>
+      <p>Michele Castigliano fornisce servizi freelance di digital marketing, tra cui gestione di campagne Google Ads e Meta Ads, advertising TikTok, sviluppo web, analisi delle performance e reportistica basata su API, per singoli clienti su base contrattuale.</p>
+      <h4>2. Strumenti API</h4>
+      <p>Utilizzo le API di Google Ads e Meta Marketing esclusivamente come strumenti professionali interni. Queste integrazioni servono unicamente ad accedere e analizzare i dati delle campagne per gli account che gestisco direttamente su accordo scritto con ciascun cliente. Gli strumenti non sono offerti come servizio a terzi né accessibili dall'esterno.</p>
+      <h4>3. Rapporto con i clienti</h4>
+      <p>Tutti gli account dei clienti sono gestiti su autorizzazione scritta esplicita di ciascun cliente, che mantiene in ogni momento la piena proprietà dei propri account pubblicitari. Opero con un accordo di servizio freelance con ciascun cliente individualmente.</p>
+      <h4>4. Limitazione di responsabilità</h4>
+      <p>I servizi sono forniti sulla base del massimo impegno. Michele Castigliano non è responsabile per perdite indirette o consequenziali derivanti dalle performance delle campagne pubblicitarie o da interruzioni dei servizi delle piattaforme al di fuori del proprio controllo.</p>
+      <h4>5. Legge applicabile</h4>
+      <p>I presenti termini sono regolati dalla legge italiana. Ogni controversia sarà soggetta alla giurisdizione del foro competente italiano.</p>
+      <h4>6. Contatti</h4>
+      <p>info@michelecastigliano.com</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Michele Castigliano — Specialista Digital Marketing freelance — P.IVA IT09715471216</span>
+  <span><a href="mailto:info@michelecastigliano.com">info@michelecastigliano.com</a> &nbsp;|&nbsp; <a href="/">English</a> &nbsp;|&nbsp; <a href="#privacy">Privacy</a></span>
+</footer>
+
+</body>
+</html>
