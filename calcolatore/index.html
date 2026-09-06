@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calcolatore di Margine — Michele Castigliano</title>
-<meta name="description" content="Calcola il margine reale di un ordine e-commerce: IVA, spedizione, fee di pagamento, commissioni, resi e sconto. Scopri quanto ti resta davvero e quanto puoi spendere in advertising.">
+<meta name="description" content="Calcola il margine reale di un ordine e-commerce: IVA, spedizione, fee di pagamento, commissioni, resi e sconto. Ogni voce spiegata, con l'indicazione di dove trovare il dato.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://michelecastigliano.com/calcolatore/">
 <meta property="og:title" content="Il conto vero del margine">
-<meta property="og:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi.">
+<meta property="og:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi. Ogni voce spiegata.">
 <meta property="og:url" content="https://michelecastigliano.com/calcolatore/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://michelecastigliano.com/calcolatore/og-calcolatore.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Il conto vero del margine">
-<meta name="twitter:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi.">
+<meta name="twitter:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi. Ogni voce spiegata.">
 <meta name="twitter:image" content="https://michelecastigliano.com/calcolatore/og-calcolatore.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -46,7 +46,7 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none; z-index: 999; opacity: 0.4;
   }
-  .wrap { max-width: 680px; margin: 0 auto; position: relative; }
+  .wrap { max-width: 700px; margin: 0 auto; position: relative; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px;
@@ -87,7 +87,7 @@
     margin-bottom: 1rem;
   }
   h1 em { font-style: italic; color: var(--accent); }
-  .intro { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 46ch; margin-bottom: 2.5rem; }
+  .intro { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 52ch; margin-bottom: 2.5rem; }
 
   .toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 2.5rem; }
   button {
@@ -105,6 +105,7 @@
   }
   button:hover { border-color: var(--accent); color: var(--accent); }
   button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  #btnGuida[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
   #copyFeedback { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
 
   section { margin-bottom: 2rem; border: 1px solid var(--border); background: var(--surface); }
@@ -125,41 +126,46 @@
     background: var(--raised);
     border-bottom: 1px solid var(--border);
     color: var(--muted);
-    font-size: 0.8rem;
-    line-height: 1.6;
+    font-size: 0.82rem;
+    line-height: 1.65;
   }
   .note strong { color: var(--accent); font-weight: 400; }
 
   .row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem 1.25rem;
+    padding: 0.85rem 1.25rem;
     border-bottom: 1px solid var(--border);
-    min-height: 3.4rem;
     font-size: 0.95rem;
   }
   .row:last-child { border-bottom: 0; }
   .row.calc { background: var(--raised); }
+
+  .row-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.7rem;
+  }
   .row label, .row .lbl { color: var(--accent); font-weight: 400; cursor: pointer; }
-  .row.calc .lbl { color: var(--text); font-weight: 500; }
+  .row.calc .lbl { color: var(--text); font-weight: 500; cursor: default; }
   .row.total .lbl {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.85rem;
   }
-  .row .hint, .row .unit {
-    display: block;
+
+  .hint {
     color: var(--muted);
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 300;
-    line-height: 1.5;
-    margin-top: 0.2rem;
-    text-transform: none;
-    letter-spacing: 0;
-    max-width: 34ch;
+    line-height: 1.65;
+    margin-top: 0.4rem;
+    max-width: 58ch;
   }
+  .hint b { color: var(--accent); font-weight: 400; }
+  .hint i { font-style: normal; color: var(--text); }
+  body.no-hints .hint { display: none; }
+  body.no-hints .note { display: none; }
 
   .val {
     min-width: 7.5rem;
@@ -224,9 +230,9 @@
     width: 1rem; height: 1rem;
     accent-color: var(--accent);
     flex: 0 0 auto;
-    margin-top: 0.3rem;
+    margin-top: 0.35rem;
   }
-  .switch label { font-size: 0.8rem; color: var(--muted); line-height: 1.6; cursor: pointer; }
+  .switch label { font-size: 0.82rem; color: var(--muted); line-height: 1.65; cursor: pointer; }
   .switch label b { color: var(--accent); font-weight: 400; }
 
   .legend {
@@ -236,6 +242,14 @@
     border-top: 1px solid var(--border);
     padding-top: 2rem;
     margin-top: 3rem;
+  }
+  .legend h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
   }
   .legend p { margin-bottom: 1rem; }
   .legend p:last-child { margin-bottom: 0; }
@@ -253,10 +267,11 @@
 
   @media (max-width: 480px) {
     body { padding: 2rem 1rem 4rem; }
-    .row { padding: 0.65rem 0.9rem; font-size: 0.9rem; }
+    .row { padding: 0.75rem 0.9rem; font-size: 0.9rem; }
     h2.bar, .headline, .switch, .note { padding-left: 0.9rem; padding-right: 0.9rem; }
-    input[type="text"] { width: 7rem; padding: 0.55rem 0.6rem; }
-    .val { min-width: 6.2rem; }
+    input[type="text"] { width: 6.8rem; padding: 0.55rem 0.6rem; }
+    .val { min-width: 6rem; }
+    .hint { font-size: 0.76rem; }
   }
 </style>
 </head>
@@ -267,128 +282,254 @@
 
   <div class="page-label">Strumento gratuito</div>
   <h1>Il conto vero del <em>margine</em></h1>
-  <p class="intro">Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee di pagamento, commissioni, resi e sconto.</p>
+  <p class="intro">Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee di pagamento, commissioni, resi e sconto. Sotto ogni voce trovi cosa significa e dove andare a prendere il numero giusto.</p>
 
   <div class="toolbar">
     <button type="button" id="btnEsempio">Carica esempio</button>
     <button type="button" id="btnCopia">Copia link con i tuoi dati</button>
+    <button type="button" id="btnGuida" aria-pressed="true">Spiegazioni: attive</button>
     <button type="button" id="btnAzzera">Azzera tutto</button>
     <span id="copyFeedback" role="status" aria-live="polite"></span>
   </div>
 
   <section>
     <h2 class="bar">1 &middot; Quanto incassi</h2>
-    <div class="row"><label for="prezzo">Prezzo di vendita <span class="unit">Quello che paga il cliente, IVA inclusa</span></label>
-      <input type="text" inputmode="decimal" id="prezzo" placeholder="0,00"></div>
-    <div class="row"><label for="spedCliente">Spedizione pagata dal cliente</label>
-      <input type="text" inputmode="decimal" id="spedCliente" placeholder="0,00"></div>
-    <div class="row calc total"><span class="lbl">Totale carrello</span>
-      <span class="val" id="carrello">&mdash;</span></div>
+
+    <div class="row">
+      <div class="row-main"><label for="prezzo">Prezzo di vendita</label>
+        <input type="text" inputmode="decimal" id="prezzo" placeholder="0,00"></div>
+      <p class="hint">Il prezzo finale che il cliente vede sul sito e paga, <i>IVA inclusa</i>. Metti qui il prezzo pieno di listino: se fai promozioni, lo sconto si applica al punto 3.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="spedCliente">Spedizione pagata dal cliente</label>
+        <input type="text" inputmode="decimal" id="spedCliente" placeholder="0,00"></div>
+      <p class="hint">Quanto aggiungi al carrello per la consegna. Se offri la spedizione gratuita lascia zero: il costo che sostieni tu lo inserisci comunque nella voce &laquo;spedizione che paghi tu&raquo;.</p>
+    </div>
+
+    <div class="row calc total">
+      <div class="row-main"><span class="lbl">Totale carrello</span>
+        <span class="val" id="carrello">&mdash;</span></div>
+      <p class="hint">Quello che il cliente paga davvero. &Egrave; la base su cui si calcolano IVA, fee e commissioni, perch&eacute; tutti si prendono la loro quota sull&rsquo;incasso lordo.</p>
+    </div>
   </section>
 
   <section>
     <h2 class="bar">2 &middot; Quanto esce</h2>
-    <p class="note">Inserisci i costi <strong>IVA esclusa</strong>: l&rsquo;imponibile che leggi in fattura, non il totale. Se metti l&rsquo;importo lordo conti l&rsquo;IVA due volte e il margine esce sbagliato.</p>
-    <div class="row"><label for="costoProd">Costo del prodotto</label>
-      <input type="text" inputmode="decimal" id="costoProd" placeholder="0,00"></div>
-    <div class="row"><label for="spedTua">Spedizione che paghi tu</label>
-      <input type="text" inputmode="decimal" id="spedTua" placeholder="0,00"></div>
-    <div class="row"><label for="iva">% IVA</label>
-      <input type="text" inputmode="decimal" id="iva" placeholder="22"></div>
-    <div class="row calc"><span class="lbl">Costo IVA</span>
-      <span class="val" id="costoIva">&mdash;</span></div>
-    <div class="row"><label for="feePerc">Fee pagamento %</label>
-      <input type="text" inputmode="decimal" id="feePerc" placeholder="0"></div>
-    <div class="row"><label for="feeFissa">Fee pagamento fissa</label>
-      <input type="text" inputmode="decimal" id="feeFissa" placeholder="0,00"></div>
-    <div class="row calc"><span class="lbl">Costo fee totale</span>
-      <span class="val" id="costoFee">&mdash;</span></div>
-    <div class="row"><label for="varPerc">Commissioni % sul carrello <span class="unit">Marketplace, affiliati, cashback</span></label>
-      <input type="text" inputmode="decimal" id="varPerc" placeholder="0"></div>
-    <div class="row calc"><span class="lbl">Costo commissioni</span>
-      <span class="val" id="costoVar">&mdash;</span></div>
-    <div class="row"><label for="altri">Altri costi <span class="unit">Packaging, evasione, IVA esclusa</span></label>
-      <input type="text" inputmode="decimal" id="altri" placeholder="0,00"></div>
-    <div class="row calc total"><span class="lbl">Totale costi</span>
-      <span class="val" id="totCosti">&mdash;</span></div>
+    <p class="note">Regola d&rsquo;oro di questa sezione: i costi vanno inseriti <strong>IVA esclusa</strong>, cio&egrave; l&rsquo;imponibile che leggi in fattura, non il totale. Se metti l&rsquo;importo lordo conti l&rsquo;IVA due volte e il margine esce pi&ugrave; basso di quello vero.</p>
+
+    <div class="row">
+      <div class="row-main"><label for="costoProd">Costo del prodotto</label>
+        <input type="text" inputmode="decimal" id="costoProd" placeholder="0,00"></div>
+      <p class="hint">Quanto paghi tu il prodotto che stai vendendo. <b>Dove lo trovi:</b> sulla fattura del fornitore, riga imponibile, al netto degli sconti che hai negoziato. Se lo produci tu, sono materiali pi&ugrave; manodopera diretta.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="spedTua">Spedizione che paghi tu</label>
+        <input type="text" inputmode="decimal" id="spedTua" placeholder="0,00"></div>
+      <p class="hint">Il costo reale della consegna al cliente. <b>Dove lo trovi:</b> sulla fattura mensile del corriere, non sul listino pubblico, perch&eacute; quasi sempre hai tariffe negoziate. Ricordati i supplementi: carburante, zone disagiate, isole, contrassegno.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="iva">% IVA</label>
+        <input type="text" inputmode="decimal" id="iva" placeholder="22"></div>
+      <p class="hint">L&rsquo;aliquota che applichi in vendita. In Italia l&rsquo;ordinaria &egrave; il <i>22%</i>; le ridotte sono 10%, 5% e 4% e valgono per categorie specifiche come alimentari, libri e alcuni prodotti sanitari. Se sei in <i>regime forfettario</i> non applichi IVA: metti 0.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Costo IVA</span>
+        <span class="val" id="costoIva">&mdash;</span></div>
+      <p class="hint">L&rsquo;IVA che incassi dal cliente e che poi giri allo Stato: non &egrave; tua, anche se transita dal tuo conto. Si <i>scorpora</i> dal carrello, non si somma sopra, perch&eacute; il prezzo che hai messo la contiene gi&agrave;.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="feePerc">Fee pagamento %</label>
+        <input type="text" inputmode="decimal" id="feePerc" placeholder="0"></div>
+      <p class="hint">La percentuale che il gestore dei pagamenti trattiene su ogni transazione. <b>Dove la trovi:</b> Shopify Payments in Impostazioni &rsaquo; Pagamenti; Stripe in Dashboard &rsaquo; Impostazioni &rsaquo; Tariffe; PayPal nella pagina Commissioni del sito ufficiale. Cambia in base al piano, al circuito e al paese della carta: quelle extra&#8209;UE costano di pi&ugrave;. Come ordine di grandezza siamo tra l&rsquo;1,4% e il 3,5%, ma <i>verifica la tua</i> invece di tirare a indovinare.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="feeFissa">Fee pagamento fissa</label>
+        <input type="text" inputmode="decimal" id="feeFissa" placeholder="0,00"></div>
+      <p class="hint">La quota fissa per transazione, che si somma alla percentuale. La leggi nella stessa pagina di prima: in area euro di solito sta tra 0,25 € e 0,35 €. Su carrelli piccoli pesa parecchio, ed &egrave; il motivo per cui gli ordini da pochi euro spesso non convengono.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Costo fee totale</span>
+        <span class="val" id="costoFee">&mdash;</span></div>
+      <p class="hint">Percentuale pi&ugrave; quota fissa, calcolate sul totale carrello. &Egrave; l&rsquo;importo che ti arriva gi&agrave; decurtato sul conto, prima ancora che tu spedisca.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="varPerc">Commissioni % sul carrello</label>
+        <input type="text" inputmode="decimal" id="varPerc" placeholder="0"></div>
+      <p class="hint">La percentuale che un terzo si prende sulla vendita, oltre alle fee di pagamento. Se vendi su un <i>marketplace</i> &egrave; la commissione sul venduto: su Amazon si chiama tariffa di segnalazione e va in genere dal 7% al 15% a seconda della categoria. <b>Dove la trovi:</b> Amazon in Seller Central &rsaquo; Tariffe di segnalazione per categoria; sugli altri marketplace nella pagina costi del venditore. Vale anche per affiliati, cashback e provvigioni dei rivenditori. Se vendi solo sul tuo sito, lascia zero.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Costo commissioni</span>
+        <span class="val" id="costoVar">&mdash;</span></div>
+      <p class="hint">Quanto vale in euro quella percentuale su questo ordine. &Egrave; il costo che sparisce se vendi sul tuo sito invece che sul marketplace.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="altri">Altri costi</label>
+        <input type="text" inputmode="decimal" id="altri" placeholder="0,00"></div>
+      <p class="hint">Tutto il resto che esce per quel singolo ordine, IVA esclusa: scatola, nastro, riempitivo, etichetta, bigliettino, e il tempo di chi prepara il pacco. <b>Se non li hai mai misurati:</b> conta il costo di un imballo tipo e aggiungi qualche minuto di manodopera. Un valore tra 1 € e 2 € &egrave; un punto di partenza onesto da correggere appena hai i numeri veri.</p>
+    </div>
+
+    <div class="row calc total">
+      <div class="row-main"><span class="lbl">Totale costi</span>
+        <span class="val" id="totCosti">&mdash;</span></div>
+      <p class="hint">La somma di tutto quello che esce per portare a termine un ordine, IVA compresa. Confrontalo col totale carrello: la differenza &egrave; il tuo margine prima dello sconto.</p>
+    </div>
   </section>
 
   <section>
     <h2 class="bar">3 &middot; Lo sconto</h2>
-    <div class="row"><label for="sconto">% sconto che applichi</label>
-      <input type="text" inputmode="decimal" id="sconto" placeholder="0"></div>
-    <div class="row calc"><span class="lbl">Valore dello sconto</span>
-      <span class="val" id="valSconto">&mdash;</span></div>
+
+    <div class="row">
+      <div class="row-main"><label for="sconto">% sconto che applichi</label>
+        <input type="text" inputmode="decimal" id="sconto" placeholder="0"></div>
+      <p class="hint">Lo sconto <i>medio</i> che concedi davvero: codici promo, saldi, sconto primo ordine, carrelli abbandonati recuperati. <b>Come calcolarlo:</b> se met&agrave; dei tuoi ordini usa un codice del 20% e l&rsquo;altra met&agrave; paga pieno, il tuo sconto medio &egrave; il 10%. &Egrave; il numero pi&ugrave; sottovalutato di tutta la tabella.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Valore dello sconto</span>
+        <span class="val" id="valSconto">&mdash;</span></div>
+      <p class="hint">Quanti euro regali su questo ordine. Guardalo accanto al margine: spesso lo sconto vale pi&ugrave; di quello che ti resta in tasca.</p>
+    </div>
+
     <div class="switch">
       <input type="checkbox" id="ricalcola">
-      <label for="ricalcola">Ricalcola IVA, fee e commissioni sul prezzo scontato <b id="recupero"></b></label>
+      <label for="ricalcola">Ricalcola IVA, fee e commissioni sul prezzo scontato <b id="recupero"></b><br>
+        Se il cliente paga meno, anche IVA, fee e commissioni scendono. Attiva questa spunta per il conto pi&ugrave; preciso; lasciala spenta per il conto prudenziale, che &egrave; quello del foglio classico.</label>
     </div>
   </section>
 
   <section>
     <h2 class="bar">4 &middot; I resi</h2>
-    <p class="note">I resi non sono un costo fisso: sono un <strong>tasso</strong>. Su un ordine reso non incassi il margine <em>e</em> paghi la spedizione due volte.</p>
-    <div class="row"><label for="tassoResi">% ordini che rientrano</label>
-      <input type="text" inputmode="decimal" id="tassoResi" placeholder="0"></div>
-    <div class="row"><label for="costoReso">Costo di un reso <span class="unit">Spedizione andata e ritorno, prodotto non rivendibile, fee non rimborsate</span></label>
-      <input type="text" inputmode="decimal" id="costoReso" placeholder="0,00"></div>
-    <div class="row calc"><span class="lbl">Impatto medio per ordine</span>
-      <span class="val" id="impattoResi">&mdash;</span></div>
+    <p class="note">I resi non sono un costo fisso, sono un <strong>tasso</strong>. Su un ordine che rientra non incassi il margine <em>e</em> paghi la spedizione due volte: per questo vanno calcolati come media su tutti gli ordini, non come voce del singolo.</p>
+
+    <div class="row">
+      <div class="row-main"><label for="tassoResi">% ordini che rientrano</label>
+        <input type="text" inputmode="decimal" id="tassoResi" placeholder="0"></div>
+      <p class="hint">Quanti ordini su cento tornano indietro. <b>Dove lo trovi:</b> nei report della tua piattaforma, oppure a mano dividendo gli ordini rimborsati per gli ordini totali dello stesso periodo. <b>Per orientarti:</b> nell&rsquo;abbigliamento e nelle calzature il 20&#8209;30% &egrave; normale, in molti altri settori si sta sotto il 5%.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-main"><label for="costoReso">Costo di un reso</label>
+        <input type="text" inputmode="decimal" id="costoReso" placeholder="0,00"></div>
+      <p class="hint">Quanto ti costa un singolo reso, tutto compreso: la spedizione di ritorno, quella di andata che hai gi&agrave; pagato, il prodotto se non &egrave; pi&ugrave; vendibile a prezzo pieno, il tempo per controllarlo e rimetterlo a magazzino, e le fee di pagamento che il gestore spesso non ti restituisce sul rimborso.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Impatto medio per ordine</span>
+        <span class="val" id="impattoResi">&mdash;</span></div>
+      <p class="hint">Quanto ti tolgono i resi in media su ogni ordine che spedisci. Non &egrave; il costo di un reso: &egrave; quel costo spalmato su tutti gli ordini, insieme al margine che perdi su quelli resi.</p>
+    </div>
   </section>
 
   <section>
     <h2 class="bar">5 &middot; Quello che ti resta</h2>
-    <div class="row calc"><span class="lbl">Margine senza sconto</span>
-      <span class="val" id="margLordo">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">Margine dopo lo sconto</span>
-      <span class="val" id="margPostSconto">&mdash;</span></div>
-    <div class="row headline" id="rowMargine"><span class="lbl">Margine reale</span>
-      <span class="val" id="margReale">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">Marginalit&agrave; senza sconto</span>
-      <span class="val" id="percLordo">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">Marginalit&agrave; reale sull&rsquo;incassato
-        <span class="hint">Quanto ti resta ogni 100 € effettivamente incassati, sconto gi&agrave; applicato</span></span>
-      <span class="val" id="percReale">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">Marginalit&agrave; reale sull&rsquo;imponibile
-        <span class="hint">La stessa cifra al netto dell&rsquo;IVA, come la calcola il commercialista</span></span>
-      <span class="val" id="percNetto">&mdash;</span></div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Margine senza sconto</span>
+        <span class="val" id="margLordo">&mdash;</span></div>
+      <p class="hint">Quello che ti resterebbe vendendo a prezzo pieno, senza promozioni e senza resi. &Egrave; il tuo tetto massimo: nessuna ottimizzazione di marketing pu&ograve; portarti sopra questa cifra.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Margine dopo lo sconto</span>
+        <span class="val" id="margPostSconto">&mdash;</span></div>
+      <p class="hint">Lo stesso margine una volta tolta la promozione. La distanza dalla riga sopra &egrave; il prezzo vero della tua politica di sconti.</p>
+    </div>
+
+    <div class="row headline" id="rowMargine">
+      <div class="row-main"><span class="lbl">Margine reale</span>
+        <span class="val" id="margReale">&mdash;</span></div>
+      <p class="hint">Il numero che conta: quello che ti resta in media su ogni ordine spedito, sconto e resi compresi. Da qui devi ancora pagare advertising e costi fissi.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Marginalit&agrave; senza sconto</span>
+        <span class="val" id="percLordo">&mdash;</span></div>
+      <p class="hint">Il margine a prezzo pieno espresso in percentuale sul carrello. Serve a confrontare prodotti con prezzi diversi tra loro.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Marginalit&agrave; reale sull&rsquo;incassato</span>
+        <span class="val" id="percReale">&mdash;</span></div>
+      <p class="hint">Quanto ti resta ogni 100 € che entrano davvero in cassa, sconto e resi gi&agrave; contati. &Egrave; la percentuale da usare quando ragioni sul fatturato.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Marginalit&agrave; reale sull&rsquo;imponibile</span>
+        <span class="val" id="percNetto">&mdash;</span></div>
+      <p class="hint">La stessa cifra rapportata al ricavo al netto dell&rsquo;IVA. &Egrave; il modo in cui la calcolano il commercialista e il bilancio, per questo esce pi&ugrave; alta della riga sopra: se le confronti, assicurati di parlare della stessa.</p>
+    </div>
   </section>
 
   <section>
     <h2 class="bar">6 &middot; Quanto puoi spendere in ads</h2>
-    <div class="row calc"><span class="lbl">CPA massimo di pareggio
-        <span class="hint">Il massimo che puoi pagare per portare a casa un ordine senza perderci</span></span>
-      <span class="val out" id="cpa">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">ROAS di pareggio
-        <span class="hint">Calcolato sul valore che la piattaforma registra per l&rsquo;ordine, cio&egrave; il prezzo davvero pagato. Sotto questo valore l&rsquo;advertising ti fa perdere soldi</span></span>
-      <span class="val out" id="roas">&mdash;</span></div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">CPA massimo di pareggio</span>
+        <span class="val out" id="cpa">&mdash;</span></div>
+      <p class="hint">Il massimo che puoi pagare per portare a casa un ordine senza perderci. <b>Dove confrontarlo:</b> in Meta &egrave; il costo per acquisto, in Google Ads il costo per conversione. Se il tuo CPA reale &egrave; sopra questa cifra, ogni vendita in pi&ugrave; ti fa perdere soldi.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">ROAS di pareggio</span>
+        <span class="val out" id="roas">&mdash;</span></div>
+      <p class="hint">Il ritorno minimo sulla spesa pubblicitaria per andare in pari. &Egrave; calcolato sul valore che la piattaforma registra per l&rsquo;ordine, cio&egrave; il prezzo davvero pagato, cos&igrave; lo puoi confrontare direttamente col ROAS della dashboard. Sotto questo numero stai comprando fatturato in perdita.</p>
+    </div>
   </section>
 
   <section>
     <h2 class="bar">7 &middot; I costi fissi</h2>
-    <div class="row"><label for="costiFissi">Costi fissi mensili <span class="unit">Affitto, stipendi, software, consulenti</span></label>
-      <input type="text" inputmode="decimal" id="costiFissi" placeholder="0,00"></div>
-    <div class="row calc"><span class="lbl">Ordini al mese per il pareggio</span>
-      <span class="val out" id="ordiniPareggio">&mdash;</span></div>
-    <div class="row calc"><span class="lbl">Fatturato mensile corrispondente</span>
-      <span class="val" id="fatturatoPareggio">&mdash;</span></div>
+
+    <div class="row">
+      <div class="row-main"><label for="costiFissi">Costi fissi mensili</label>
+        <input type="text" inputmode="decimal" id="costiFissi" placeholder="0,00"></div>
+      <p class="hint">Tutto quello che paghi ogni mese anche se non vendi niente: abbonamento della piattaforma, app e software, hosting, stipendi e collaboratori, agenzia, commercialista, affitto del magazzino. <b>Non metterci l&rsquo;advertising:</b> quello si copre col margine di ogni ordine ed &egrave; gi&agrave; considerato al punto 6.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Ordini al mese per il pareggio</span>
+        <span class="val out" id="ordiniPareggio">&mdash;</span></div>
+      <p class="hint">Quanti ordini come questo ti servono ogni mese solo per coprire i costi fissi. Dal primo ordine successivo inizi a guadagnare davvero.</p>
+    </div>
+
+    <div class="row calc">
+      <div class="row-main"><span class="lbl">Fatturato mensile corrispondente</span>
+        <span class="val" id="fatturatoPareggio">&mdash;</span></div>
+      <p class="hint">Il giro d&rsquo;affari che quegli ordini rappresentano. Serve per capire se l&rsquo;obiettivo &egrave; realistico rispetto a quanto vendi oggi.</p>
+    </div>
   </section>
 
   <div class="legend">
-    <p><strong>Come si legge.</strong> Le voci <em>in oro</em> le scrivi tu, quelle in chiaro le calcola il foglio.
-    Il prezzo di vendita &egrave; quello finale IVA inclusa; tutti i costi vanno inseriti IVA esclusa.</p>
+    <h2>Le formule, in chiaro</h2>
 
-    <p><strong>L&rsquo;IVA</strong> viene scorporata dal totale carrello (carrello &minus; carrello &divide; 1+IVA).
-    Le <strong>fee di pagamento</strong> e le <strong>commissioni</strong> si calcolano sul carrello lordo,
-    perch&eacute; &egrave; su quello che le trattengono Stripe, PayPal o il marketplace.
-    Lo <strong>sconto</strong> viene sottratto dal margine; attivando la spunta al punto 3 il calcolatore
-    tiene conto anche del fatto che su un ordine scontato paghi meno IVA, meno fee e meno commissioni.</p>
+    <p><strong>Come si legge la tabella.</strong> Le voci <em>in oro</em> le scrivi tu, quelle in chiaro le calcola il foglio.
+    Il prezzo di vendita &egrave; quello finale IVA inclusa; tutti i costi vanno inseriti IVA esclusa.
+    Se ti servono solo i numeri puoi spegnere le spiegazioni col pulsante in alto.</p>
 
-    <p><strong>I resi</strong> entrano come valore atteso: margine reale =
-    (1 &minus; tasso) &times; margine dopo lo sconto &minus; tasso &times; costo del reso.
+    <p><strong>L&rsquo;IVA</strong> si scorpora dal totale carrello: carrello &minus; carrello &divide; (1 + aliquota).
+    <strong>Fee e commissioni</strong> si calcolano sul carrello lordo, perch&eacute; &egrave; su quello che trattengono
+    la loro quota Stripe, PayPal o il marketplace.</p>
+
+    <p><strong>Lo sconto</strong> viene sottratto dal margine. Attivando la spunta al punto 3 il calcolatore
+    tiene conto anche del fatto che su un ordine scontato paghi meno IVA, meno fee e meno commissioni:
+    &egrave; il conto pi&ugrave; preciso, ma di default resta spento per restare fedele al foglio classico.</p>
+
+    <p><strong>I resi</strong> entrano come valore atteso:
+    margine reale = (1 &minus; tasso) &times; margine dopo lo sconto &minus; tasso &times; costo del reso.
     Con l&rsquo;8% di resi da 12 € l&rsquo;uno, un margine di 8,13 € scende a 6,52 €.</p>
 
-    <p>Se lasci i resi e i costi fissi a zero, il conto &egrave; identico a quello del foglio originale.</p>
+    <p>Se lasci resi e costi fissi a zero, il conto &egrave; identico a quello del foglio di calcolo originale.
+    Le percentuali e le tariffe citate nelle spiegazioni sono ordini di grandezza per orientarti:
+    <strong>i numeri veri sono quelli del tuo pannello</strong>, e cambiano nel tempo.</p>
   </div>
 
   <footer>
@@ -415,11 +556,12 @@
   var chk = document.getElementById("ricalcola");
   var live = document.getElementById("liveRegion");
   var KEY = "mc-calcolatore-margine-v2";
+  var KEY_HINTS = "mc-calcolatore-spiegazioni";
 
   var eur = new Intl.NumberFormat("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
   var pct = new Intl.NumberFormat("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
   var dec = new Intl.NumberFormat("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
-  var int = new Intl.NumberFormat("it-IT",{maximumFractionDigits:0});
+  var ent = new Intl.NumberFormat("it-IT",{maximumFractionDigits:0});
 
   var OUTPUTS = ["carrello","costoIva","costoFee","costoVar","totCosti","valSconto","impattoResi",
                  "margLordo","margPostSconto","margReale","percLordo","percReale","percNetto",
@@ -527,7 +669,7 @@
       set("roas", dec.format(ricavoIncassato / margReale) + "x");
       if(costiFissi > 0){
         var ordini = Math.ceil(costiFissi / margReale);
-        set("ordiniPareggio", int.format(ordini) + (ordini === 1 ? " ordine" : " ordini"));
+        set("ordiniPareggio", ent.format(ordini) + (ordini === 1 ? " ordine" : " ordini"));
         set("fatturatoPareggio", money(ordini * ricavoIncassato));
       } else {
         set("ordiniPareggio", "—");
@@ -607,6 +749,19 @@
       window.prompt("Copia il link:", url);
     }
   });
+
+  // spiegazioni: visibili di default, la scelta resta salvata
+  var btnGuida = document.getElementById("btnGuida");
+  function setHints(attive){
+    document.body.classList.toggle("no-hints", !attive);
+    btnGuida.setAttribute("aria-pressed", attive ? "true" : "false");
+    btnGuida.textContent = attive ? "Spiegazioni: attive" : "Spiegazioni: nascoste";
+    try{ localStorage.setItem(KEY_HINTS, attive ? "1" : "0"); }catch(e){}
+  }
+  btnGuida.addEventListener("click", function(){
+    setHints(document.body.classList.contains("no-hints"));
+  });
+  try{ if(localStorage.getItem(KEY_HINTS) === "0") setHints(false); }catch(e){}
 
   var ESEMPIO = {prezzo:"60", spedCliente:"", costoProd:"20", spedTua:"6", iva:"22",
                  feePerc:"4,5", feeFissa:"0,35", varPerc:"", altri:"", sconto:"20",
