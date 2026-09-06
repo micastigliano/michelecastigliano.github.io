@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcolatore di Margine — Michele Castigliano</title>
+<meta name="description" content="Calcola il margine reale di un ordine e-commerce: IVA, spedizione, fee di pagamento, commissioni, resi e sconto. Scopri quanto ti resta davvero e quanto puoi spendere in advertising.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://michelecastigliano.com/calcolatore/">
+<meta property="og:title" content="Il conto vero del margine">
+<meta property="og:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi.">
+<meta property="og:url" content="https://michelecastigliano.com/calcolatore/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://michelecastigliano.com/calcolatore/og-calcolatore.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Il conto vero del margine">
+<meta name="twitter:description" content="Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee, commissioni e resi.">
+<meta name="twitter:image" content="https://michelecastigliano.com/calcolatore/og-calcolatore.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --raised: #1b1a17;
+    --accent: #c8a96e;
+    --text: #f0ece4;
+    --muted: #7a7570;
+    --border: #2a2620;
+    --negative: #b5533f;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.4;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; position: relative; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  .back {
+    display: inline-block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s;
+  }
+  .back:hover { color: var(--accent); }
+
+  .page-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .page-label::before { content: ''; display: block; width: 40px; height: 1px; background: var(--accent); }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .intro { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 46ch; margin-bottom: 2.5rem; }
+
+  .toolbar { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 2.5rem; }
+  button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  #copyFeedback { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+  section { margin-bottom: 2rem; border: 1px solid var(--border); background: var(--surface); }
+
+  h2.bar {
+    background: var(--accent);
+    color: var(--bg);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .note {
+    padding: 0.9rem 1.25rem;
+    background: var(--raised);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .note strong { color: var(--accent); font-weight: 400; }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    min-height: 3.4rem;
+    font-size: 0.95rem;
+  }
+  .row:last-child { border-bottom: 0; }
+  .row.calc { background: var(--raised); }
+  .row label, .row .lbl { color: var(--accent); font-weight: 400; cursor: pointer; }
+  .row.calc .lbl { color: var(--text); font-weight: 500; }
+  .row.total .lbl {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+  }
+  .row .hint, .row .unit {
+    display: block;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-top: 0.2rem;
+    text-transform: none;
+    letter-spacing: 0;
+    max-width: 34ch;
+  }
+
+  .val {
+    min-width: 7.5rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .val.out { color: var(--accent); }
+  .val.neg { color: var(--negative); }
+
+  input[type="text"] {
+    width: 8.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    padding: 0.6rem 0.75rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+  input::placeholder { color: #4a453e; font-weight: 300; }
+
+  .headline {
+    background: var(--bg);
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding: 1.35rem 1.25rem;
+  }
+  .headline .lbl {
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+  .headline .val {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .headline.neg { border-color: var(--negative); }
+  .headline.neg .val { color: var(--negative); }
+
+  .switch {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--raised);
+    border-top: 1px solid var(--border);
+  }
+  .switch input {
+    width: 1rem; height: 1rem;
+    accent-color: var(--accent);
+    flex: 0 0 auto;
+    margin-top: 0.3rem;
+  }
+  .switch label { font-size: 0.8rem; color: var(--muted); line-height: 1.6; cursor: pointer; }
+  .switch label b { color: var(--accent); font-weight: 400; }
+
+  .legend {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.85;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    margin-top: 3rem;
+  }
+  .legend p { margin-bottom: 1rem; }
+  .legend p:last-child { margin-bottom: 0; }
+  .legend strong { color: var(--text); font-weight: 500; }
+  .legend em { color: var(--accent); font-style: normal; }
+
+  footer {
+    margin-top: 2.5rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    body { padding: 2rem 1rem 4rem; }
+    .row { padding: 0.65rem 0.9rem; font-size: 0.9rem; }
+    h2.bar, .headline, .switch, .note { padding-left: 0.9rem; padding-right: 0.9rem; }
+    input[type="text"] { width: 7rem; padding: 0.55rem 0.6rem; }
+    .val { min-width: 6.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="/">&larr; Michele Castigliano</a>
+
+  <div class="page-label">Strumento gratuito</div>
+  <h1>Il conto vero del <em>margine</em></h1>
+  <p class="intro">Quanto ti lascia davvero un ordine, una volta tolti IVA, spedizione, fee di pagamento, commissioni, resi e sconto.</p>
+
+  <div class="toolbar">
+    <button type="button" id="btnEsempio">Carica esempio</button>
+    <button type="button" id="btnCopia">Copia link con i tuoi dati</button>
+    <button type="button" id="btnAzzera">Azzera tutto</button>
+    <span id="copyFeedback" role="status" aria-live="polite"></span>
+  </div>
+
+  <section>
+    <h2 class="bar">1 &middot; Quanto incassi</h2>
+    <div class="row"><label for="prezzo">Prezzo di vendita <span class="unit">Quello che paga il cliente, IVA inclusa</span></label>
+      <input type="text" inputmode="decimal" id="prezzo" placeholder="0,00"></div>
+    <div class="row"><label for="spedCliente">Spedizione pagata dal cliente</label>
+      <input type="text" inputmode="decimal" id="spedCliente" placeholder="0,00"></div>
+    <div class="row calc total"><span class="lbl">Totale carrello</span>
+      <span class="val" id="carrello">&mdash;</span></div>
+  </section>
+
+  <section>
+    <h2 class="bar">2 &middot; Quanto esce</h2>
+    <p class="note">Inserisci i costi <strong>IVA esclusa</strong>: l&rsquo;imponibile che leggi in fattura, non il totale. Se metti l&rsquo;importo lordo conti l&rsquo;IVA due volte e il margine esce sbagliato.</p>
+    <div class="row"><label for="costoProd">Costo del prodotto</label>
+      <input type="text" inputmode="decimal" id="costoProd" placeholder="0,00"></div>
+    <div class="row"><label for="spedTua">Spedizione che paghi tu</label>
+      <input type="text" inputmode="decimal" id="spedTua" placeholder="0,00"></div>
+    <div class="row"><label for="iva">% IVA</label>
+      <input type="text" inputmode="decimal" id="iva" placeholder="22"></div>
+    <div class="row calc"><span class="lbl">Costo IVA</span>
+      <span class="val" id="costoIva">&mdash;</span></div>
+    <div class="row"><label for="feePerc">Fee pagamento %</label>
+      <input type="text" inputmode="decimal" id="feePerc" placeholder="0"></div>
+    <div class="row"><label for="feeFissa">Fee pagamento fissa</label>
+      <input type="text" inputmode="decimal" id="feeFissa" placeholder="0,00"></div>
+    <div class="row calc"><span class="lbl">Costo fee totale</span>
+      <span class="val" id="costoFee">&mdash;</span></div>
+    <div class="row"><label for="varPerc">Commissioni % sul carrello <span class="unit">Marketplace, affiliati, cashback</span></label>
+      <input type="text" inputmode="decimal" id="varPerc" placeholder="0"></div>
+    <div class="row calc"><span class="lbl">Costo commissioni</span>
+      <span class="val" id="costoVar">&mdash;</span></div>
+    <div class="row"><label for="altri">Altri costi <span class="unit">Packaging, evasione, IVA esclusa</span></label>
+      <input type="text" inputmode="decimal" id="altri" placeholder="0,00"></div>
+    <div class="row calc total"><span class="lbl">Totale costi</span>
+      <span class="val" id="totCosti">&mdash;</span></div>
+  </section>
+
+  <section>
+    <h2 class="bar">3 &middot; Lo sconto</h2>
+    <div class="row"><label for="sconto">% sconto che applichi</label>
+      <input type="text" inputmode="decimal" id="sconto" placeholder="0"></div>
+    <div class="row calc"><span class="lbl">Valore dello sconto</span>
+      <span class="val" id="valSconto">&mdash;</span></div>
+    <div class="switch">
+      <input type="checkbox" id="ricalcola">
+      <label for="ricalcola">Ricalcola IVA, fee e commissioni sul prezzo scontato <b id="recupero"></b></label>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="bar">4 &middot; I resi</h2>
+    <p class="note">I resi non sono un costo fisso: sono un <strong>tasso</strong>. Su un ordine reso non incassi il margine <em>e</em> paghi la spedizione due volte.</p>
+    <div class="row"><label for="tassoResi">% ordini che rientrano</label>
+      <input type="text" inputmode="decimal" id="tassoResi" placeholder="0"></div>
+    <div class="row"><label for="costoReso">Costo di un reso <span class="unit">Spedizione andata e ritorno, prodotto non rivendibile, fee non rimborsate</span></label>
+      <input type="text" inputmode="decimal" id="costoReso" placeholder="0,00"></div>
+    <div class="row calc"><span class="lbl">Impatto medio per ordine</span>
+      <span class="val" id="impattoResi">&mdash;</span></div>
+  </section>
+
+  <section>
+    <h2 class="bar">5 &middot; Quello che ti resta</h2>
+    <div class="row calc"><span class="lbl">Margine senza sconto</span>
+      <span class="val" id="margLordo">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">Margine dopo lo sconto</span>
+      <span class="val" id="margPostSconto">&mdash;</span></div>
+    <div class="row headline" id="rowMargine"><span class="lbl">Margine reale</span>
+      <span class="val" id="margReale">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">Marginalit&agrave; senza sconto</span>
+      <span class="val" id="percLordo">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">Marginalit&agrave; reale sull&rsquo;incassato
+        <span class="hint">Quanto ti resta ogni 100 € effettivamente incassati, sconto gi&agrave; applicato</span></span>
+      <span class="val" id="percReale">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">Marginalit&agrave; reale sull&rsquo;imponibile
+        <span class="hint">La stessa cifra al netto dell&rsquo;IVA, come la calcola il commercialista</span></span>
+      <span class="val" id="percNetto">&mdash;</span></div>
+  </section>
+
+  <section>
+    <h2 class="bar">6 &middot; Quanto puoi spendere in ads</h2>
+    <div class="row calc"><span class="lbl">CPA massimo di pareggio
+        <span class="hint">Il massimo che puoi pagare per portare a casa un ordine senza perderci</span></span>
+      <span class="val out" id="cpa">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">ROAS di pareggio
+        <span class="hint">Calcolato sul valore che la piattaforma registra per l&rsquo;ordine, cio&egrave; il prezzo davvero pagato. Sotto questo valore l&rsquo;advertising ti fa perdere soldi</span></span>
+      <span class="val out" id="roas">&mdash;</span></div>
+  </section>
+
+  <section>
+    <h2 class="bar">7 &middot; I costi fissi</h2>
+    <div class="row"><label for="costiFissi">Costi fissi mensili <span class="unit">Affitto, stipendi, software, consulenti</span></label>
+      <input type="text" inputmode="decimal" id="costiFissi" placeholder="0,00"></div>
+    <div class="row calc"><span class="lbl">Ordini al mese per il pareggio</span>
+      <span class="val out" id="ordiniPareggio">&mdash;</span></div>
+    <div class="row calc"><span class="lbl">Fatturato mensile corrispondente</span>
+      <span class="val" id="fatturatoPareggio">&mdash;</span></div>
+  </section>
+
+  <div class="legend">
+    <p><strong>Come si legge.</strong> Le voci <em>in oro</em> le scrivi tu, quelle in chiaro le calcola il foglio.
+    Il prezzo di vendita &egrave; quello finale IVA inclusa; tutti i costi vanno inseriti IVA esclusa.</p>
+
+    <p><strong>L&rsquo;IVA</strong> viene scorporata dal totale carrello (carrello &minus; carrello &divide; 1+IVA).
+    Le <strong>fee di pagamento</strong> e le <strong>commissioni</strong> si calcolano sul carrello lordo,
+    perch&eacute; &egrave; su quello che le trattengono Stripe, PayPal o il marketplace.
+    Lo <strong>sconto</strong> viene sottratto dal margine; attivando la spunta al punto 3 il calcolatore
+    tiene conto anche del fatto che su un ordine scontato paghi meno IVA, meno fee e meno commissioni.</p>
+
+    <p><strong>I resi</strong> entrano come valore atteso: margine reale =
+    (1 &minus; tasso) &times; margine dopo lo sconto &minus; tasso &times; costo del reso.
+    Con l&rsquo;8% di resi da 12 € l&rsquo;uno, un margine di 8,13 € scende a 6,52 €.</p>
+
+    <p>Se lasci i resi e i costi fissi a zero, il conto &egrave; identico a quello del foglio originale.</p>
+  </div>
+
+  <footer>
+    I numeri restano nel tuo browser: non vengono inviati da nessuna parte.
+    Il pulsante &laquo;copia link&raquo; crea un indirizzo che contiene i valori, cos&igrave; puoi condividere lo scenario.<br>
+    Uno strumento di <a href="/">Michele Castigliano</a>.
+  </footer>
+
+</div>
+
+<div class="sr-only" id="liveRegion" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+(function(){
+  // id campo -> parametro URL
+  var PARAM = {
+    prezzo:"p", spedCliente:"sc", costoProd:"cp", spedTua:"st", iva:"iva",
+    feePerc:"fp", feeFissa:"ff", varPerc:"cv", altri:"ac", sconto:"sk",
+    tassoResi:"tr", costoReso:"cr", costiFissi:"cf"
+  };
+  var ids = Object.keys(PARAM);
+  var el = {};
+  ids.forEach(function(k){ el[k] = document.getElementById(k); });
+  var chk = document.getElementById("ricalcola");
+  var live = document.getElementById("liveRegion");
+  var KEY = "mc-calcolatore-margine-v2";
+
+  var eur = new Intl.NumberFormat("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
+  var pct = new Intl.NumberFormat("it-IT",{minimumFractionDigits:1,maximumFractionDigits:1});
+  var dec = new Intl.NumberFormat("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
+  var int = new Intl.NumberFormat("it-IT",{maximumFractionDigits:0});
+
+  var OUTPUTS = ["carrello","costoIva","costoFee","costoVar","totCosti","valSconto","impattoResi",
+                 "margLordo","margPostSconto","margReale","percLordo","percReale","percNetto",
+                 "cpa","roas","ordiniPareggio","fatturatoPareggio"];
+
+  function num(v){
+    if(v === null || v === undefined) return 0;
+    v = String(v).replace(/\s/g,"").replace(/€/g,"").replace(/%/g,"").replace(",",".");
+    var n = parseFloat(v);
+    return isFinite(n) ? n : 0;
+  }
+  function set(id, txt){ document.getElementById(id).textContent = txt; }
+  function money(n){ return eur.format(n) + " €"; }
+  function perc(n){ return pct.format(n) + " %"; }
+
+  var liveTimer = null;
+  function announce(txt){
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(function(){ live.textContent = txt; }, 700);
+  }
+
+  function calc(){
+    var prezzo  = num(el.prezzo.value);
+    var spedCli = num(el.spedCliente.value);
+    var carrello = prezzo + spedCli;
+
+    if(el.prezzo.value.trim() === "" && el.spedCliente.value.trim() === ""){
+      OUTPUTS.forEach(function(id){ set(id, "—"); });
+      document.getElementById("recupero").textContent = "";
+      document.getElementById("rowMargine").classList.remove("neg");
+      document.getElementById("impattoResi").classList.remove("neg");
+      live.textContent = "";
+      save();
+      return;
+    }
+
+    var costoProd  = num(el.costoProd.value);
+    var spedTua    = num(el.spedTua.value);
+    var ivaP       = num(el.iva.value) / 100;
+    var feeP       = num(el.feePerc.value) / 100;
+    var feeF       = num(el.feeFissa.value);
+    var varP       = num(el.varPerc.value) / 100;
+    var altri      = num(el.altri.value);
+    var scontoP    = num(el.sconto.value) / 100;
+    var tassoResi  = num(el.tassoResi.value) / 100;
+    var costoReso  = num(el.costoReso.value);
+    var costiFissi = num(el.costiFissi.value);
+
+    if(ivaP <= -1) ivaP = 0;
+    if(tassoResi < 0) tassoResi = 0;
+    if(tassoResi > 1) tassoResi = 1;
+
+    var costiDiretti = costoProd + spedTua + altri;
+
+    function ivaSu(base){ return base - (base / (1 + ivaP)); }
+    function feeSu(base){ return base > 0 ? (base * feeP) + feeF : 0; }
+    function varSu(base){ return base * varP; }
+
+    var valSconto       = carrello * scontoP;
+    var ricavoIncassato = carrello - valSconto;
+    var baseCosti       = chk.checked ? ricavoIncassato : carrello;
+
+    var costoIva = ivaSu(baseCosti);
+    var costoFee = feeSu(baseCosti);
+    var costoVar = varSu(baseCosti);
+    var totCosti = costiDiretti + costoIva + costoFee + costoVar;
+
+    // margine a prezzo pieno, sempre calcolato sul carrello non scontato
+    var margLordo = carrello - (costiDiretti + ivaSu(carrello) + feeSu(carrello) + varSu(carrello));
+
+    var margPostSconto, recuperoTxt = "";
+    if(chk.checked){
+      margPostSconto = ricavoIncassato - totCosti;
+      var recupero = (ivaSu(carrello) - costoIva) + (feeSu(carrello) - costoFee) + (varSu(carrello) - costoVar);
+      if(recupero > 0.005) recuperoTxt = "→ recuperi " + money(recupero);
+    } else {
+      margPostSconto = margLordo - valSconto;
+    }
+
+    var margReale   = ((1 - tassoResi) * margPostSconto) - (tassoResi * costoReso);
+    var impattoResi = margReale - margPostSconto;
+
+    set("carrello",  money(carrello));
+    set("costoIva",  money(costoIva));
+    set("costoFee",  money(costoFee));
+    set("costoVar",  money(costoVar));
+    set("totCosti",  money(totCosti));
+    set("valSconto", money(valSconto));
+    set("impattoResi", impattoResi < -0.005 ? money(impattoResi) : money(0));
+    document.getElementById("impattoResi").classList.toggle("neg", impattoResi < -0.005);
+
+    set("margLordo",      money(margLordo));
+    set("margPostSconto", money(margPostSconto));
+    set("margReale",      money(margReale));
+    document.getElementById("recupero").textContent = recuperoTxt;
+    document.getElementById("rowMargine").classList.toggle("neg", margReale < 0);
+
+    var imponibile = ricavoIncassato / (1 + ivaP);
+    set("percLordo",  carrello        ? perc(margLordo / carrello * 100)        : "—");
+    set("percReale",  ricavoIncassato ? perc(margReale / ricavoIncassato * 100) : "—");
+    set("percNetto",  imponibile      ? perc(margReale / imponibile * 100)      : "—");
+
+    if(margReale > 0){
+      set("cpa",  money(margReale));
+      set("roas", dec.format(ricavoIncassato / margReale) + "x");
+      if(costiFissi > 0){
+        var ordini = Math.ceil(costiFissi / margReale);
+        set("ordiniPareggio", int.format(ordini) + (ordini === 1 ? " ordine" : " ordini"));
+        set("fatturatoPareggio", money(ordini * ricavoIncassato));
+      } else {
+        set("ordiniPareggio", "—");
+        set("fatturatoPareggio", "—");
+      }
+    } else {
+      set("cpa",  money(0));
+      set("roas", "già in perdita");
+      set("ordiniPareggio", "mai");
+      set("fatturatoPareggio", "—");
+    }
+
+    announce("Margine reale " + money(margReale) + ", pari al " +
+             (ricavoIncassato ? perc(margReale / ricavoIncassato * 100) : "—") + " di quanto incassi.");
+    save();
+  }
+
+  function save(){
+    try{
+      var d = {};
+      ids.forEach(function(k){ d[k] = el[k].value; });
+      d.ricalcola = chk.checked;
+      localStorage.setItem(KEY, JSON.stringify(d));
+    }catch(e){}
+  }
+
+  function loadStorage(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return false;
+      var d = JSON.parse(raw);
+      if(!d || typeof d !== "object") return false;
+      ids.forEach(function(k){ if(typeof d[k] === "string") el[k].value = d[k]; });
+      chk.checked = !!d.ricalcola;
+      return true;
+    }catch(e){ return false; }
+  }
+
+  function loadUrl(){
+    var q;
+    try{ q = new URLSearchParams(window.location.search); }catch(e){ return false; }
+    if(!q.toString()) return false;
+    var trovato = false;
+    ids.forEach(function(k){
+      var v = q.get(PARAM[k]);
+      if(v !== null){ el[k].value = v.replace(".", ","); trovato = true; }
+    });
+    if(q.get("rc") !== null){ chk.checked = q.get("rc") === "1"; trovato = true; }
+    return trovato;
+  }
+
+  function buildUrl(){
+    var parts = [];
+    ids.forEach(function(k){
+      var v = el[k].value.trim();
+      if(v !== "") parts.push(PARAM[k] + "=" + encodeURIComponent(v.replace(",", ".")));
+    });
+    if(chk.checked) parts.push("rc=1");
+    var base = window.location.origin + window.location.pathname;
+    return parts.length ? base + "?" + parts.join("&") : base;
+  }
+
+  function feedback(txt){
+    var fb = document.getElementById("copyFeedback");
+    fb.textContent = txt;
+    setTimeout(function(){ fb.textContent = ""; }, 3000);
+  }
+
+  document.getElementById("btnCopia").addEventListener("click", function(){
+    var url = buildUrl();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(
+        function(){ feedback("Link copiato"); },
+        function(){ window.prompt("Copia il link:", url); }
+      );
+    } else {
+      window.prompt("Copia il link:", url);
+    }
+  });
+
+  var ESEMPIO = {prezzo:"60", spedCliente:"", costoProd:"20", spedTua:"6", iva:"22",
+                 feePerc:"4,5", feeFissa:"0,35", varPerc:"", altri:"", sconto:"20",
+                 tassoResi:"", costoReso:"", costiFissi:""};
+  var VUOTO   = {prezzo:"", spedCliente:"", costoProd:"", spedTua:"", iva:"22",
+                 feePerc:"2", feeFissa:"0,25", varPerc:"", altri:"", sconto:"",
+                 tassoResi:"", costoReso:"", costiFissi:""};
+
+  function apply(v){
+    ids.forEach(function(k){ el[k].value = v[k]; });
+    chk.checked = false;
+    calc();
+  }
+
+  ids.forEach(function(k){ el[k].addEventListener("input", calc); });
+  chk.addEventListener("change", calc);
+  document.getElementById("btnEsempio").addEventListener("click", function(){ apply(ESEMPIO); });
+  document.getElementById("btnAzzera").addEventListener("click", function(){ apply(VUOTO); });
+
+  // priorità: parametri URL > valori salvati > campi vuoti
+  if(loadUrl()){ calc(); }
+  else if(loadStorage()){ calc(); }
+  else { apply(VUOTO); }
+})();
+</script>
+</body>
+</html>
